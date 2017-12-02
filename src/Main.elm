@@ -1,8 +1,12 @@
-module Main exposing (..)
+port module Main exposing (..)
 
-import Html exposing (Html, text, div, h1, img)
-import Html.Attributes exposing (src)
+import Html exposing (Html, text, div, h1, img, button)
+import Html.Events exposing (onClick)
 import List
+
+
+port sendStoryToRead : String -> Cmd msg
+
 
 
 ---- TYPES ----
@@ -116,12 +120,18 @@ init =
 
 
 type Msg
-    = NoOp
+    = StoryReadRequested Story
+    | NoOp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        StoryReadRequested story ->
+            ( model, sendStoryToRead <| readStory story )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 
@@ -132,6 +142,7 @@ view : Model -> Html Msg
 view model =
     div []
         [ text <| readStory scoutLosesHerToolbox
+        , button [ onClick <| StoryReadRequested scoutLosesHerToolbox ] [ text "Read story" ]
         ]
 
 
