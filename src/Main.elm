@@ -13,9 +13,7 @@ port sendStoryToRead : String -> Cmd msg
 
 
 type Character
-    = Boo
-    | Scout
-    | Dougie
+    = Character String
 
 
 type Object
@@ -72,16 +70,8 @@ readStoryComponent (Story _ character object) storyComponent =
 
 
 characterToString : Character -> String
-characterToString character =
-    case character of
-        Boo ->
-            "Boo"
-
-        Scout ->
-            "Scout"
-
-        Dougie ->
-            "Dougie"
+characterToString (Character name) =
+    name
 
 
 objectToString : Object -> String
@@ -99,7 +89,7 @@ objectToString object =
 
 scoutLosesHerToolbox : Story
 scoutLosesHerToolbox =
-    Story someoneLosesSomething Scout ToolBox
+    Story someoneLosesSomething (Character "Pablo") ToolBox
 
 
 
