@@ -148,7 +148,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          require.resolve('style-loader'),
+          { loader: require.resolve('style-loader'), options: { singleton: true } },
           {
             loader: require.resolve('css-loader'),
             options: {
@@ -160,6 +160,7 @@ module.exports = {
             options: {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
               plugins: () => [
+                require('postcss-import')(),
                 require('postcss-nested')(),
                 require('postcss-cssnext')()
               ]
