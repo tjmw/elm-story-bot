@@ -27,13 +27,6 @@ view { story } =
 
 renderPage : Story -> StoryPage -> Html Msg
 renderPage story page =
-    let
-        character =
-            characterFromStory story
-
-        object =
-            objectFromStory story
-    in
-        div [ onClick <| PageReadRequested page ]
-            [ text <| pageToString character object page
-            ]
+    div [ onClick <| PageReadRequested page ]
+        [ text <| pageToString story page
+        ]

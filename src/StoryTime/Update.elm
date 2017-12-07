@@ -20,14 +20,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg ({ story } as model) =
     case msg of
         PageReadRequested storyPage ->
-            let
-                character =
-                    characterFromStory story
-
-                object =
-                    objectFromStory story
-            in
-                ( model, sendStoryToRead <| pageToString character object storyPage )
+            ( model, sendStoryToRead <| pageToString story storyPage )
 
         _ ->
             ( model, Cmd.none )
