@@ -17,9 +17,7 @@ type Character
 
 
 type Object
-    = Binoculars
-    | ToolBox
-    | Cake
+    = Object String
 
 
 type StoryComponent
@@ -75,21 +73,13 @@ characterToString (Character name) =
 
 
 objectToString : Object -> String
-objectToString object =
-    case object of
-        Binoculars ->
-            "binoculars"
-
-        ToolBox ->
-            "tool box"
-
-        Cake ->
-            "cake"
+objectToString (Object objectName) =
+    objectName
 
 
 scoutLosesHerToolbox : Story
 scoutLosesHerToolbox =
-    Story someoneLosesSomething (Character "Pablo") ToolBox
+    Story someoneLosesSomething (Character "Pablo") (Object "laptop")
 
 
 
