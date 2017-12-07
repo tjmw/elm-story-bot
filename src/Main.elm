@@ -26,8 +26,12 @@ type StoryComponent
     | ObjectPlaceholder
 
 
+type StoryPage
+    = StoryPage (List StoryComponent)
+
+
 type StoryTemplate
-    = StoryTemplate (List StoryComponent)
+    = StoryTemplate (List StoryPage)
 
 
 type Story
@@ -37,25 +41,44 @@ type Story
 someoneLosesSomething : StoryTemplate
 someoneLosesSomething =
     StoryTemplate
-        [ Line "Once upon a time, "
-        , CharacterPlaceholder
-        , Line "was on the way to the library, when they noticed they'd lost their"
-        , ObjectPlaceholder
-        , Line "This made"
-        , CharacterPlaceholder
-        , Line "really sad, because the"
-        , ObjectPlaceholder
-        , Line "was their favourite item."
+        [ StoryPage
+            [ Line "Once upon a time, "
+            , CharacterPlaceholder
+            , Line "was on the way to the library, when they noticed they'd lost their"
+            , ObjectPlaceholder
+            ]
+        , StoryPage
+            [ Line "This made"
+            , CharacterPlaceholder
+            , Line "really sad, because the"
+            , ObjectPlaceholder
+            , Line "was their favourite item."
+            ]
         ]
 
 
-readStory : Story -> String
-readStory ((Story (StoryTemplate lines) character object) as story) =
-    String.join " " <| List.map (readStoryComponent story) lines
+storyToPages : Story -> List StoryPage
+storyToPages (Story (StoryTemplate pages) _ _) =
+    pages
 
 
-readStoryComponent : Story -> StoryComponent -> String
-readStoryComponent (Story _ character object) storyComponent =
+characterFromStory : Story -> Character
+characterFromStory (Story _ character _) =
+    character
+
+
+objectFromStory : Story -> Object
+objectFromStory (Story _ _ object) =
+    object
+
+
+pageToString : Character -> Object -> StoryPage -> String
+pageToString character object (StoryPage components) =
+    String.join " " <| List.map (componentToString character object) components
+
+
+componentToString : Character -> Object -> StoryComponent -> String
+componentToString character object storyComponent =
     case storyComponent of
         Line line ->
             line
@@ -77,8 +100,8 @@ objectToString (Object objectName) =
     objectName
 
 
-scoutLosesHerToolbox : Story
-scoutLosesHerToolbox =
+defaultStory : Story
+defaultStory =
     Story someoneLosesSomething (Character "Pablo") (Object "laptop")
 
 
@@ -87,12 +110,12 @@ scoutLosesHerToolbox =
 
 
 type alias Model =
-    {}
+    { story : Story }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( { story = defaultStory }, Cmd.none )
 
 
 
@@ -100,15 +123,22 @@ init =
 
 
 type Msg
-    = StoryReadRequested Story
+    = PageReadRequested StoryPage
     | NoOp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update msg ({ story } as model) =
     case msg of
-        StoryReadRequested story ->
-            ( model, sendStoryToRead <| readStory story )
+        PageReadRequested storyPage ->
+            let
+                character =
+                    characterFromStory story
+
+                object =
+                    objectFromStory story
+            in
+                ( model, sendStoryToRead <| pageToString character object storyPage )
 
         _ ->
             ( model, Cmd.none )
@@ -119,10 +149,19 @@ update msg model =
 
 
 view : Model -> Html Msg
-view model =
+view { story } =
     div []
-        [ text <| readStory scoutLosesHerToolbox
-        , button [ onClick <| StoryReadRequested scoutLosesHerToolbox ] [ text "Read story" ]
+        (List.map
+            (renderPage story)
+         <|
+            storyToPages story
+        )
+
+
+renderPage : Story -> StoryPage -> Html Msg
+renderPage (Story _ character object) page =
+    div [ onClick <| PageReadRequested page ]
+        [ text <| pageToString character object page
         ]
 
 
