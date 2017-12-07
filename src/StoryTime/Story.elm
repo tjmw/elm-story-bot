@@ -6,10 +6,14 @@ module StoryTime.Story
         , StoryTemplate
         , characterFromStory
         , defaultStory
+        , findTemplateByNameString
         , objectFromStory
         , pageToString
         , storyToPages
+        , templateNames
         )
+
+import List.Extra
 
 
 type Character
@@ -30,8 +34,12 @@ type StoryPage
     = StoryPage (List StoryComponent)
 
 
+type StoryName
+    = StoryName String
+
+
 type StoryTemplate
-    = StoryTemplate (List StoryPage)
+    = StoryTemplate StoryName (List StoryPage)
 
 
 type Story
@@ -39,7 +47,7 @@ type Story
 
 
 storyToPages : Story -> List StoryPage
-storyToPages (Story (StoryTemplate pages) _ _) =
+storyToPages (Story (StoryTemplate _ pages) _ _) =
     pages
 
 
@@ -86,9 +94,40 @@ defaultStory =
     Story someoneLosesSomething (Character "Pablo") (Object "laptop")
 
 
+findTemplateByName : StoryName -> Maybe StoryTemplate
+findTemplateByName name =
+    List.Extra.find (hasMatchingName name) templates
+
+
+findTemplateByNameString : String -> Maybe StoryTemplate
+findTemplateByNameString =
+    findTemplateByName << StoryName
+
+
+hasMatchingName : StoryName -> StoryTemplate -> Bool
+hasMatchingName matchingName (StoryTemplate name _) =
+    matchingName == name
+
+
+storyTemplateNameString : StoryTemplate -> String
+storyTemplateNameString (StoryTemplate (StoryName name) _) =
+    name
+
+
+templates : List StoryTemplate
+templates =
+    [ someoneLosesSomething ]
+
+
+templateNames : List String
+templateNames =
+    List.map storyTemplateNameString templates
+
+
 someoneLosesSomething : StoryTemplate
 someoneLosesSomething =
     StoryTemplate
+        (StoryName "Someone loses something")
         [ StoryPage
             [ Line "Once upon a time, "
             , CharacterPlaceholder
