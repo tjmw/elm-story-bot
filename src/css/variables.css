@@ -3,6 +3,7 @@
   --font-secondary: "Work Sans", Helvetica, system-ui, sans-serif;
   --fontSize-base: 48px;
   --fontSize-primary: 1rem;
+  --fontSize-large: 1.5rem;
   --color-fadedYellow: rgb(255, 255, 248);
   --color-black: rgb(81, 81, 81);
   --color-green: rgb(157, 216, 78);
@@ -10,4 +11,8 @@
   --color-gray: rgb(186, 186, 186);
   --color-bg: var(--color-fadedYellow);
   --color-text: var(--color-black);
+  --lineHeight: 1.4;
+  --measure: 20em;
+  --spacing: 1em;
+  --spacing-large: calc(var(--spacing) * 2);
 }

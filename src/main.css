@@ -1,9 +1,14 @@
 @import "css/variables.css";
+@import "css/typography.css";
+@import "css/container.css";
+@import "css/line.css";
 
 html {
   font-size: var(--fontSize-base);
+  background-color: var(--color-bg);
 }
 
 body {
   color: var(--color-text);
+  line-height: var(--lineHeight);
 }
