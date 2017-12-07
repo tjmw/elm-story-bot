@@ -1,0 +1,16 @@
+.textInput {
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: var(--fontSize-alt);
+  font-weight: 500;
+  background-color: transparent;
+  border: 0;
+  position: relative;
+  border-bottom: 5px solid var(--color-green);
+  padding: var(--spacing-small);
+  text-align: center;
+
+  &:focus {
+    outline: 0;
+  }
+}
