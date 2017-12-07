@@ -6,7 +6,7 @@
   background-color: transparent;
   border: 0;
   position: relative;
-  border-bottom: 5px solid var(--color-green);
+  border-bottom: 5px solid var(--color-interaction);
   padding: var(--spacing-small);
   text-align: center;
 
