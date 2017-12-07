@@ -2,6 +2,7 @@
 @import "css/typography.css";
 @import "css/container.css";
 @import "css/line.css";
+@import "css/button.css";
 
 html {
   font-size: var(--fontSize-base);

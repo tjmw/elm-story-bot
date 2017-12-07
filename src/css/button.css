@@ -1,0 +1,11 @@
+.button {
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: var(--fontSize-alt);
+  font-weight: 500;
+  padding: var(--spacing) var(--spacing-large);
+  background-color: transparent;
+  border: var(--border-primary);
+  border-color: var(--color-text);
+  border-radius: var(--borderRadius-primary);
+}
