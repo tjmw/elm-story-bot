@@ -8,19 +8,36 @@ import StoryTime.Story
         , objectFromStory
         , pageToString
         )
-import StoryTime.Types exposing (Model, Msg(..))
+import StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), selectName)
+import StoryTime.Types exposing (Model, Msg(..), setName)
+import StoryTime.Name exposing (Name(..))
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { story = defaultStory }, Cmd.none )
+    ( { storyBuildProgress = Incomplete, name = NoName }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg ({ story } as model) =
-    case msg of
-        PageReadRequested storyPage ->
-            ( model, sendStoryToRead <| pageToString story storyPage )
-
-        _ ->
+update msg ({ storyBuildProgress, name } as model) =
+    let
+        noop =
             ( model, Cmd.none )
+    in
+        case msg of
+            PageReadRequested storyPage ->
+                case storyBuildProgress of
+                    Complete story ->
+                        ( model, sendStoryToRead <| pageToString story storyPage )
+
+                    _ ->
+                        noop
+
+            SetName nameString ->
+                ( setName nameString model, Cmd.none )
+
+            SelectName ->
+                ( { model | storyBuildProgress = selectName model.name model.storyBuildProgress }, Cmd.none )
+
+            _ ->
+                noop

@@ -1,7 +1,9 @@
 module StoryTime.Story
     exposing
-        ( Story
+        ( Character(..)
+        , Story
         , StoryPage
+        , StoryTemplate
         , characterFromStory
         , defaultStory
         , objectFromStory
