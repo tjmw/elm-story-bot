@@ -51,8 +51,8 @@ objectFromStory (Story _ _ object) =
     object
 
 
-pageToString : Character -> Object -> StoryPage -> String
-pageToString character object (StoryPage components) =
+pageToString : Story -> StoryPage -> String
+pageToString (Story _ character object) (StoryPage components) =
     String.join " " <| List.map (componentToString character object) components
 
 
