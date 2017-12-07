@@ -12,6 +12,7 @@
   --color-gray: rgb(186, 186, 186);
   --color-bg: var(--color-fadedYellow);
   --color-text: var(--color-black);
+  --color-highlight: var(--color-terracotta);
   --lineHeight: 1.4;
   --measure: 20em;
   --spacing: 1rem;
