@@ -6,12 +6,12 @@ const target = document.getElementById('root');
 
 const component = Main.embed(target);
 
-component.ports.sendStoryToRead.subscribe((story) => {
+component.ports.sendStoryToRead.subscribe((text) => {
   var u = new SpeechSynthesisUtterance();
-  u.text = story;
+  u.text = text;
   u.lang = 'en-GB';
   speechSynthesis.speak(u);
-  console.log(story);
+  console.log(text);
 });
 
 registerServiceWorker();
