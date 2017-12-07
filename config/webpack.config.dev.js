@@ -160,14 +160,8 @@ module.exports = {
             options: {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
               plugins: () => [
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9'
-                  ]
-                })
+                require('postcss-nested')(),
+                require('postcss-cssnext')()
               ]
             }
           }
