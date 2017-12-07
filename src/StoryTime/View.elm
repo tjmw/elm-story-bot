@@ -3,17 +3,16 @@ module StoryTime.View exposing (view)
 import Html exposing (Html, text, div, h1, img, button)
 import Html.Events exposing (onClick)
 import List
-import StoryTime.Types
+import StoryTime.Story
     exposing
-        ( Model
-        , Msg(..)
-        , Story
+        ( Story
         , StoryPage
         , characterFromStory
         , objectFromStory
         , pageToString
         , storyToPages
         )
+import StoryTime.Types exposing (Model, Msg(..))
 
 
 view : Model -> Html Msg

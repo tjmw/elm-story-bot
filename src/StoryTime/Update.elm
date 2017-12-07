@@ -1,15 +1,14 @@
 module StoryTime.Update exposing (init, update)
 
 import StoryTime.Ports exposing (sendStoryToRead)
-import StoryTime.Types
+import StoryTime.Story
     exposing
-        ( Model
-        , Msg(..)
-        , characterFromStory
+        ( characterFromStory
         , defaultStory
         , objectFromStory
         , pageToString
         )
+import StoryTime.Types exposing (Model, Msg(..))
 
 
 init : ( Model, Cmd Msg )
