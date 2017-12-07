@@ -47,5 +47,8 @@
   "dependencies": {
     "postcss-cssnext": "^3.0.2",
     "postcss-nested": "^2.1.2"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js"
   }
 }
