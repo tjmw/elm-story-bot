@@ -75,13 +75,13 @@ module.exports = {
     path: paths.appBuild,
 
     // Append leading slash when production assets are referenced in the html.
-    publicPath: publicPath,
+    // publicPath: publicPath,
 
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
 
     // Generated JS files.
-    filename: 'static/js/[name].[chunkhash:8].js'
+    filename: './static/js/[name].[chunkhash:8].js'
   },
 
   resolve: {
@@ -160,38 +160,26 @@ module.exports = {
 
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract(
-          Object.assign(
-            {
-              fallback: require.resolve('style-loader'),
-              use: [
-                {
-                  loader: require.resolve('css-loader'),
-                  options: {
-                    minimize: true
-                  }
-                },
-                {
-                  loader: require.resolve('postcss-loader'),
-                  options: {
-                    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-                    plugins: () => [
-                      autoprefixer({
-                        browsers: [
-                          '>1%',
-                          'last 4 versions',
-                          'Firefox ESR',
-                          'not ie < 9'
-                        ]
-                      })
-                    ]
-                  }
-                }
+        use: [
+          { loader: require.resolve('style-loader'), options: { singleton: true } },
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('postcss-import')(),
+                require('postcss-nested')(),
+                require('postcss-cssnext')()
               ]
-            },
-            extractTextPluginOptions
-          )
-        )
+            }
+          }
+        ]
       },
 
       {
