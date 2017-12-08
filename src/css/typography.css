@@ -1,3 +1,15 @@
 .center {
   text-align: center;
 }
+
+.f-secondary {
+  font-family: var(--font-secondary);
+}
+
+.f-500 {
+  font-weight: 500;
+}
+
+.f-700 {
+  font-weight: 700;
+}

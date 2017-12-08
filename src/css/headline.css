@@ -1,0 +1,6 @@
+.headline {
+  font-family: var(--font-primary);
+  font-size: var(--fontSize-headline);
+  margin: var(--spacing) 0;
+  line-height: 1;
+}

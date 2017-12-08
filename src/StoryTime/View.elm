@@ -1,7 +1,7 @@
 module StoryTime.View exposing (view)
 
 import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option)
-import Html.Attributes exposing (class, id, for)
+import Html.Attributes exposing (class, id, for, placeholder)
 import Html.Events exposing (onClick, onInput, on)
 import Json.Decode
 import List
@@ -40,9 +40,10 @@ view { storyBuildProgress, name, object } =
 renderNameSelection : NameSelection -> Html Msg
 renderNameSelection name =
     section [ class "container" ]
-        [ label [ for "label-field" ] [ text "Enter your name" ]
-        , input [ id "label-field", onInput SetName ] [ text <| nameSelectionToString name ]
-        , button [ onClick SelectName ] [ text "Select name" ]
+        [ h1 [ class "headline" ] [ text "1" ]
+        , label [ class " center line", for "label-field" ] [ text "Write the name of the person in the story." ]
+        , input [ class "textInput f-secondary f-700 mb-primary", id "label-field", placeholder "Wonder Woman", onInput SetName ] [ text <| nameSelectionToString name ]
+        , button [ class "f-secondary f-500 button", onClick SelectName ] [ text "Next" ]
         ]
 
 

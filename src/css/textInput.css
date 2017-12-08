@@ -1,8 +1,6 @@
 .textInput {
   color: var(--color-text);
-  font-family: var(--font-secondary);
   font-size: var(--fontSize-alt);
-  font-weight: 500;
   background-color: transparent;
   border: 0;
   position: relative;
