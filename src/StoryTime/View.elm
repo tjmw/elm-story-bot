@@ -154,7 +154,7 @@ renderPage story page =
         [ div [ class "line center", onClick <| PageReadRequested page ]
             [ text <| pageToString story page
             ]
-        , button [ onClick TurnPage ] [ text "Turn the page" ]
+        , button [ class "button button-secondary f-alternative, f-500", onClick TurnPage ] [ text "Turn the page" ]
         ]
 
 
@@ -162,7 +162,7 @@ renderStoryFinished : Story -> Html Msg
 renderStoryFinished story =
     section [ class "container" ]
         [ h1 [ class "headline center" ] [ text "The End" ]
-        , button [ onClick ReadAgain, class "button button-secondary" ] [ text "Read Again" ]
+        , button [ onClick ReadAgain, class "button button-secondary f-secondary f-500" ] [ text "Read Again" ]
         ]
 
 
