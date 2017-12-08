@@ -1,6 +1,6 @@
 module StoryTime.View exposing (view)
 
-import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option, span, i)
+import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option, span, i, p)
 import Html.Attributes exposing (class, id, for, placeholder, name, disabled, selected, value)
 import Html.Events exposing (onClick, onInput, on)
 import Html.Attributes.Aria exposing (ariaLabel)
@@ -125,26 +125,27 @@ templateOption name =
 renderStoryNotStarted : Story -> Html Msg
 renderStoryNotStarted story =
     section [ class "container" ]
-        [ renderStorySummary story
-        , button [] [ text "Start reading" ]
+        [ h1 [ class "headline" ] [ text "Start" ]
+        , renderStorySummary story
+        , button [ class "button button-primary f-secondary f-500" ] [ text "Start Reading" ]
         ]
 
 
 renderStorySummary : Story -> Html Msg
 renderStorySummary story =
-    span []
-        [ text "You've chosen a story about "
-        , text <| (quoted <| storyNameStringFromStory story) ++ " "
+    p [ class "line center" ]
+        [ text "You've created a story about "
+        , span [ class "highlight" ] [ text <| (quoted <| storyNameStringFromStory story) ++ " " ]
         , text "featuring "
-        , text <| (quoted <| characterStringFromStory story) ++ " "
+        , span [ class "highlight" ] [ text <| (quoted <| characterStringFromStory story) ++ " " ]
         , text "and "
-        , text <| quoted <| objectStringFromStory story
+        , span [ class "highlight" ] [ text <| quoted <| objectStringFromStory story ]
         ]
 
 
 quoted : String -> String
 quoted string =
-    "'" ++ string ++ "'"
+    "‘" ++ string ++ "’"
 
 
 renderPage : Story -> StoryPage -> Html Msg
@@ -160,7 +161,7 @@ renderStoryFinished : Story -> Html Msg
 renderStoryFinished story =
     section [ class "container" ]
         [ text "The End"
-        , button [] [ text "Read again" ]
+        , button [ class "button button-secondary" ] [ text "Read again" ]
         ]
 
 
