@@ -116,7 +116,7 @@ storyTemplateNameString (StoryTemplate (StoryName name) _) =
 
 templates : List StoryTemplate
 templates =
-    [ someoneLosesSomething ]
+    [ someoneLosesSomething, birthdayParty ]
 
 
 templateNames : List String
@@ -140,5 +140,23 @@ someoneLosesSomething =
             , Line "really sad, because the"
             , ObjectPlaceholder
             , Line "was their favourite item."
+            ]
+        ]
+
+
+birthdayParty : StoryTemplate
+birthdayParty =
+    StoryTemplate
+        (StoryName "Birthday Party")
+        [ StoryPage
+            [ Line "Once upon a time, "
+            , CharacterPlaceholder
+            , Line "had a birthday party."
+            ]
+        , StoryPage
+            [ Line "There was a big cake, and lots of presents for "
+            , CharacterPlaceholder
+            , Line "including a"
+            , ObjectPlaceholder
             ]
         ]
