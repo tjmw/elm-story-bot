@@ -24,14 +24,14 @@ init : ( Model, Cmd Msg )
 init =
     ( { storyBuildProgress = Incomplete
       , name = NoName
-      , selectedTemplate = NoTemplateSelected
+      , template = NoTemplateSelected
       }
     , Cmd.none
     )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg ({ storyBuildProgress, selectedTemplate, name } as model) =
+update msg ({ storyBuildProgress, template, name } as model) =
     let
         noop =
             ( model, Cmd.none )
@@ -47,10 +47,10 @@ update msg ({ storyBuildProgress, selectedTemplate, name } as model) =
                 ( { model | storyBuildProgress = selectName name storyBuildProgress }, Cmd.none )
 
             SetTemplate templateNameString ->
-                ( { model | selectedTemplate = (selectTemplateByNameString templateNameString) }, Cmd.none )
+                ( { model | template = (selectTemplateByNameString templateNameString) }, Cmd.none )
 
             SelectTemplate ->
-                ( { model | storyBuildProgress = selectTemplate selectedTemplate storyBuildProgress }, Cmd.none )
+                ( { model | storyBuildProgress = selectTemplate template storyBuildProgress }, Cmd.none )
 
             _ ->
                 noop

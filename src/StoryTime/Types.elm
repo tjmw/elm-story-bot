@@ -22,6 +22,6 @@ setName nameString model =
 
 type alias Model =
     { storyBuildProgress : StoryBuildProgress
-    , selectedTemplate : TemplateSelection
+    , template : TemplateSelection
     , name : NameSelection
     }
