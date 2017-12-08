@@ -15,9 +15,11 @@ import StoryTime.StoryBuildProgress
         ( StoryBuildProgress(..)
         , selectName
         , selectTemplate
+        , selectObject
         )
-import StoryTime.Types exposing (Model, Msg(..), setName)
+import StoryTime.Types exposing (Model, Msg(..), setName, setObject)
 import StoryTime.NameSelection exposing (NameSelection(..))
+import StoryTime.ObjectSelection exposing (ObjectSelection(..))
 
 
 init : ( Model, Cmd Msg )
@@ -25,13 +27,14 @@ init =
     ( { storyBuildProgress = Incomplete
       , name = NoNameSelected
       , template = NoTemplateSelected
+      , object = NoObjectSelected
       }
     , Cmd.none
     )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg ({ storyBuildProgress, template, name } as model) =
+update msg ({ storyBuildProgress, template, name, object } as model) =
     let
         noop =
             ( model, Cmd.none )
@@ -51,6 +54,12 @@ update msg ({ storyBuildProgress, template, name } as model) =
 
             SelectTemplate ->
                 ( { model | storyBuildProgress = selectTemplate template storyBuildProgress }, Cmd.none )
+
+            SetObject objectString ->
+                ( setObject objectString model, Cmd.none )
+
+            SelectObject ->
+                ( { model | storyBuildProgress = selectObject object storyBuildProgress }, Cmd.none )
 
             _ ->
                 noop

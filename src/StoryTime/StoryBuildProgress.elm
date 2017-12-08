@@ -1,8 +1,9 @@
-module StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), selectName, selectTemplate)
+module StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), selectName, selectTemplate, selectObject)
 
-import StoryTime.Story exposing (Story, StoryTemplate, Character(..))
+import StoryTime.Story exposing (Story(..), StoryTemplate, Character(..), Object(..))
 import StoryTime.TemplateSelection exposing (TemplateSelection(..))
 import StoryTime.NameSelection exposing (NameSelection(..))
+import StoryTime.ObjectSelection exposing (ObjectSelection(..))
 
 
 type StoryBuildProgress
@@ -34,6 +35,21 @@ selectTemplate templateSelection progress =
             case progress of
                 CharacterSelected character ->
                     TemplateSelected character template
+
+                _ ->
+                    progress
+
+        _ ->
+            progress
+
+
+selectObject : ObjectSelection -> StoryBuildProgress -> StoryBuildProgress
+selectObject objectSelection progress =
+    case objectSelection of
+        ObjectSelection name ->
+            case progress of
+                TemplateSelected character template ->
+                    Complete <| Story template character (Object name)
 
                 _ ->
                     progress
