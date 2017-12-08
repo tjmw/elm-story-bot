@@ -5,7 +5,7 @@ import Html.Attributes exposing (class, id, for)
 import Html.Events exposing (onClick, onInput, on)
 import Json.Decode
 import List
-import StoryTime.Name exposing (Name(..), nameToString)
+import StoryTime.NameSelection exposing (NameSelection(..), nameSelectionToString)
 import StoryTime.Story
     exposing
         ( Story
@@ -36,11 +36,11 @@ view { storyBuildProgress, name } =
             div [] [ text "Implement me" ]
 
 
-renderNameSelection : Name -> Html Msg
+renderNameSelection : NameSelection -> Html Msg
 renderNameSelection name =
     section [ class "container" ]
         [ label [ for "label-field" ] [ text "Enter your name" ]
-        , input [ id "label-field", onInput SetName ] [ text <| nameToString name ]
+        , input [ id "label-field", onInput SetName ] [ text <| nameSelectionToString name ]
         , button [ onClick SelectName ] [ text "Select name" ]
         ]
 

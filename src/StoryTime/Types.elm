@@ -1,6 +1,6 @@
 module StoryTime.Types exposing (Model, Msg(..), setName)
 
-import StoryTime.Name exposing (Name, stringToName)
+import StoryTime.NameSelection exposing (NameSelection, stringToNameSelection)
 import StoryTime.TemplateSelection exposing (TemplateSelection(..))
 import StoryTime.Story exposing (Story, StoryPage)
 import StoryTime.StoryBuildProgress exposing (StoryBuildProgress)
@@ -17,11 +17,11 @@ type Msg
 
 setName : String -> Model -> Model
 setName nameString model =
-    { model | name = stringToName nameString }
+    { model | name = stringToNameSelection nameString }
 
 
 type alias Model =
     { storyBuildProgress : StoryBuildProgress
     , selectedTemplate : TemplateSelection
-    , name : Name
+    , name : NameSelection
     }

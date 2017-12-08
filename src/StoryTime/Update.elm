@@ -17,7 +17,7 @@ import StoryTime.StoryBuildProgress
         , selectTemplate
         )
 import StoryTime.Types exposing (Model, Msg(..), setName)
-import StoryTime.Name exposing (Name(..))
+import StoryTime.NameSelection exposing (NameSelection(..))
 
 
 init : ( Model, Cmd Msg )

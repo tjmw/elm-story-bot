@@ -2,7 +2,7 @@ module StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), selectName
 
 import StoryTime.Story exposing (Story, StoryTemplate, Character(..))
 import StoryTime.TemplateSelection exposing (TemplateSelection(..))
-import StoryTime.Name exposing (Name(..))
+import StoryTime.NameSelection exposing (NameSelection(..))
 
 
 type StoryBuildProgress
@@ -12,10 +12,10 @@ type StoryBuildProgress
     | Complete Story
 
 
-selectName : Name -> StoryBuildProgress -> StoryBuildProgress
+selectName : NameSelection -> StoryBuildProgress -> StoryBuildProgress
 selectName name progress =
     case name of
-        Name nameString ->
+        NameSelection nameString ->
             case progress of
                 Incomplete ->
                     CharacterSelected (Character nameString)
