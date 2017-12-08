@@ -1,6 +1,6 @@
 module StoryTime.View exposing (view)
 
-import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option)
+import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option, span)
 import Html.Attributes exposing (class, id, for, placeholder)
 import Html.Events exposing (onClick, onInput, on)
 import Html.Attributes.Aria exposing (ariaLabel)
@@ -42,8 +42,18 @@ renderNameSelection : NameSelection -> Html Msg
 renderNameSelection name =
     section [ class "container" ]
         [ h1 [ class "headline", ariaLabel "Step 1" ] [ text "1" ]
-        , label [ class "center line", for "label-field" ] [ text "Write the name of the person in the story." ]
-        , input [ class "textInput f-secondary f-700 mb-primary", id "label-field", placeholder "Wonder Woman", onInput SetName ] [ text <| nameSelectionToString name ]
+        , label [ class "center line", for "label-field" ]
+            [ text "Write the name of the "
+            , span [ class "highlight" ] [ text "person " ]
+            , text "in the story."
+            ]
+        , input
+            [ class "textInput f-secondary f-700 mb-primary"
+            , id "label-field"
+            , placeholder "Wonder Woman"
+            , onInput SetName
+            ]
+            [ text <| nameSelectionToString name ]
         , button [ class "f-secondary f-500 button button-primary", onClick SelectName ] [ text "Next" ]
         ]
 
