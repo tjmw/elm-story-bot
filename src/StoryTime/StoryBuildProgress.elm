@@ -2,6 +2,7 @@ module StoryTime.StoryBuildProgress
     exposing
         ( StoryBuildProgress(..)
         , ReadingProgress(..)
+        , getCurrentPage
         , selectName
         , selectTemplate
         , selectObject
@@ -109,3 +110,18 @@ incrementPage progress story =
 
         Finished ->
             Finished
+
+
+getCurrentPage : StoryBuildProgress -> Maybe StoryPage
+getCurrentPage build =
+    case build of
+        Complete _ readingProgress ->
+            case readingProgress of
+                InProgress page ->
+                    Just page
+
+                _ ->
+                    Nothing
+
+        _ ->
+            Nothing

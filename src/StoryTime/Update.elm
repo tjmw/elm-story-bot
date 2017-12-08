@@ -14,6 +14,7 @@ import StoryTime.StoryBuildProgress
     exposing
         ( StoryBuildProgress(..)
         , defaultStoryBuildProgress
+        , getCurrentPage
         , selectName
         , selectObject
         , selectTemplate
@@ -64,10 +65,26 @@ update msg ({ storyBuildProgress, template, name, object } as model) =
                 ( { model | storyBuildProgress = selectObject object storyBuildProgress }, Cmd.none )
 
             TurnPage ->
-                ( { model | storyBuildProgress = turnPage storyBuildProgress }, Cmd.none )
+                handlePageTurn model
 
             _ ->
                 noop
+
+
+handlePageTurn : Model -> ( Model, Cmd Msg )
+handlePageTurn ({ storyBuildProgress } as model) =
+    let
+        newBuildProgress =
+            turnPage storyBuildProgress
+
+        page =
+            getCurrentPage newBuildProgress
+
+        cmd =
+            Maybe.map (readStoryPage newBuildProgress) page
+                |> Maybe.withDefault Cmd.none
+    in
+        ( { model | storyBuildProgress = newBuildProgress }, cmd )
 
 
 readStoryPage : StoryBuildProgress -> StoryPage -> Cmd Msg
