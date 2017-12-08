@@ -154,7 +154,7 @@ renderPage story page =
         [ div [ class "line center", onClick <| PageReadRequested page ]
             [ text <| pageToString story page
             ]
-        , button [ onClick TurnPage ] [ text "Turn the page" ]
+        , button [ class "button button-secondary f-alternative, f-500", onClick TurnPage ] [ text "Turn the page" ]
         ]
 
 
