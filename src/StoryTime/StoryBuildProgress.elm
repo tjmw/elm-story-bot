@@ -42,7 +42,7 @@ type StoryBuildProgress
 
 defaultStoryBuildProgress : StoryBuildProgress
 defaultStoryBuildProgress =
-    Complete defaultStory NotStarted
+    Incomplete
 
 
 selectName : NameSelection -> StoryBuildProgress -> StoryBuildProgress
