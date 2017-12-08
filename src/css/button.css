@@ -1,8 +1,12 @@
 .button {
   color: var(--color-text);
+  cursor: pointer;
   font-size: var(--fontSize-alt);
-  padding: var(--spacing-small) var(--spacing);
   background-color: transparent;
+}
+
+.button-primary {
+  padding: var(--spacing-small) var(--spacing);
   border: var(--border-primary);
   border-color: var(--color-text);
   border-radius: var(--borderRadius-primary);
@@ -15,4 +19,10 @@
     color: var(--color-bg);
     transform: translateY(-5px);
   }
+}
+
+.button-secondary {
+  border: 0;
+  border-bottom: var(--border-primary);
+  border-color: var(--color-text);
 }

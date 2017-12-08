@@ -42,9 +42,9 @@ renderNameSelection : NameSelection -> Html Msg
 renderNameSelection name =
     section [ class "container" ]
         [ h1 [ class "headline", ariaLabel "Step 1" ] [ text "1" ]
-        , label [ class " center line", for "label-field" ] [ text "Write the name of the person in the story." ]
+        , label [ class "center line", for "label-field" ] [ text "Write the name of the person in the story." ]
         , input [ class "textInput f-secondary f-700 mb-primary", id "label-field", placeholder "Wonder Woman", onInput SetName ] [ text <| nameSelectionToString name ]
-        , button [ class "f-secondary f-500 button", onClick SelectName ] [ text "Next" ]
+        , button [ class "f-secondary f-500 button button-primary", onClick SelectName ] [ text "Next" ]
         ]
 
 
