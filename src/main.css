@@ -8,6 +8,7 @@
 @import "css/highlight.css";
 @import "css/underline.css";
 @import "css/headline.css";
+@import "css/select.css";
 
 html {
   font-size: var(--fontSize-base);

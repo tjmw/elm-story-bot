@@ -19,6 +19,7 @@
   --measure: 20em;
   --spacing: 1rem;
   --spacing-large: calc(var(--spacing) * 2);
+  --spacing-xlarge: calc(var(--spacing-large) * 1.5);
   --spacing-small: calc(var(--spacing) / 2);
   --border-primary: 5px solid;
   --borderRadius-primary: 15px;
