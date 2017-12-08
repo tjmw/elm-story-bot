@@ -14,7 +14,7 @@
   transition-duration: 0.5s;
   transition-timing-function: ease;
 
-  &:hover {
+  &:enabled:hover {
     background-color: var(--color-text);
     color: var(--color-bg);
     transform: translateY(-5px);

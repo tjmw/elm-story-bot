@@ -8,6 +8,7 @@ import Json.Decode
 import List
 import StoryTime.NameSelection exposing (NameSelection(..), nameSelectionToString)
 import StoryTime.ObjectSelection exposing (ObjectSelection(..), objectSelectionToString)
+import StoryTime.TemplateSelection exposing (TemplateSelection(..))
 import StoryTime.Story
     exposing
         ( Story
@@ -24,13 +25,13 @@ import StoryTime.Types exposing (Model, Msg(..))
 
 
 view : Model -> Html Msg
-view { storyBuildProgress, name, object } =
+view { storyBuildProgress, name, object, template } =
     case storyBuildProgress of
         Incomplete ->
             renderNameSelection name
 
         CharacterSelected character ->
-            renderTemplateSelection
+            renderTemplateSelection template
 
         TemplateSelected character template ->
             renderObjectSelection object
@@ -63,12 +64,17 @@ renderNameSelection name =
             , onInput SetName
             ]
             [ text <| nameSelectionToString name ]
-        , button [ class "f-secondary f-500 button button-primary", onClick SelectName ] [ text "Next" ]
+        , button
+            [ disabled <| name == NoNameSelected
+            , class "f-secondary f-500 button button-primary"
+            , onClick SelectName
+            ]
+            [ text "Next" ]
         ]
 
 
-renderTemplateSelection : Html Msg
-renderTemplateSelection =
+renderTemplateSelection : TemplateSelection -> Html Msg
+renderTemplateSelection template =
     section [ class "container" ]
         [ h1 [ class "headline", ariaLabel "Step 2" ] [ text "2" ]
         , label [ class "center line", for "label-field" ] [ text "The story I want to add them to is..." ]
@@ -83,7 +89,12 @@ renderTemplateSelection =
                     :: templateOptions
             , i [ class "caret" ] []
             ]
-        , button [ class "f-secondary f-500 button button-primary", onClick SelectTemplate ] [ text "Next" ]
+        , button
+            [ disabled <| template == NoTemplateSelected
+            , class "f-secondary f-500 button button-primary"
+            , onClick SelectTemplate
+            ]
+            [ text "Next" ]
         ]
 
 
@@ -103,7 +114,12 @@ renderObjectSelection object =
             , onInput SetObject
             ]
             [ text <| objectSelectionToString object ]
-        , button [ class "f-secondary f-500 button button-primary", onClick SelectObject ] [ text "Next" ]
+        , button
+            [ disabled <| object == NoObjectSelected
+            , class "f-secondary f-500 button button-primary"
+            , onClick SelectObject
+            ]
+            [ text "Next" ]
         ]
 
 
