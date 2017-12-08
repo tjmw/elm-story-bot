@@ -13,6 +13,7 @@
 html {
   font-size: var(--fontSize-base);
   background-color: var(--color-bg);
+  animation: slidein 0.75s ease;
 }
 
 body {

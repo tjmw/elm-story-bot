@@ -1,5 +1,5 @@
 .line {
   font-family: var(--font-primary);
   font-size: var(--fontSize-large);
-  margin-bottom: var(--spacing-large);
+  margin: 0 0 var(--spacing-large);
 }
