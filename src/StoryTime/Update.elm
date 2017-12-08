@@ -68,7 +68,7 @@ update msg ({ storyBuildProgress, template, name, object } as model) =
 readStoryPage : StoryBuildProgress -> StoryPage -> Cmd Msg
 readStoryPage storyBuildProgress storyPage =
     case storyBuildProgress of
-        Complete story ->
+        Complete story _ ->
             sendStoryToRead <| pageToString story storyPage
 
         _ ->

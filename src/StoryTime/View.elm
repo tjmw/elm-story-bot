@@ -18,7 +18,7 @@ import StoryTime.Story
         , storyToPages
         , templateNames
         )
-import StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..))
+import StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), ReadingProgress(..))
 import StoryTime.Types exposing (Model, Msg(..))
 
 
@@ -34,8 +34,16 @@ view { storyBuildProgress, name, object } =
         TemplateSelected character template ->
             renderObjectSelection object
 
-        Complete story ->
-            renderStory story
+        Complete story readingProgress ->
+            case readingProgress of
+                NotStarted ->
+                    renderStoryNotStarted story
+
+                InProgress storyPage ->
+                    renderPage story storyPage
+
+                Finished ->
+                    renderStoryFinished story
 
 
 renderNameSelection : NameSelection -> Html Msg
@@ -113,20 +121,28 @@ templateOption name =
     option [ id name ] [ text name ]
 
 
-renderStory : Story -> Html Msg
-renderStory story =
+renderStoryNotStarted : Story -> Html Msg
+renderStoryNotStarted story =
     section [ class "container" ]
-        (List.map
-            (renderPage story)
-         <|
-            storyToPages story
-        )
+        [ text "Story summary"
+        , button [] [ text "Start reading" ]
+        ]
 
 
 renderPage : Story -> StoryPage -> Html Msg
 renderPage story page =
-    div [ class "line center", onClick <| PageReadRequested page ]
-        [ text <| pageToString story page
+    section [ class "container" ]
+        [ div [ class "line center", onClick <| PageReadRequested page ]
+            [ text <| pageToString story page
+            ]
+        ]
+
+
+renderStoryFinished : Story -> Html Msg
+renderStoryFinished story =
+    section [ class "container" ]
+        [ text "The End"
+        , button [] [ text "Read again" ]
         ]
 
 
