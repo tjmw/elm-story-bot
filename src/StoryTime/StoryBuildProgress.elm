@@ -1,6 +1,25 @@
-module StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), ReadingProgress(..), selectName, selectTemplate, selectObject, defaultStoryBuildProgress)
+module StoryTime.StoryBuildProgress
+    exposing
+        ( StoryBuildProgress(..)
+        , ReadingProgress(..)
+        , selectName
+        , selectTemplate
+        , selectObject
+        , defaultStoryBuildProgress
+        , turnPage
+        )
 
-import StoryTime.Story exposing (Story(..), StoryTemplate, StoryPage, Character(..), Object(..), defaultStory)
+import StoryTime.Story
+    exposing
+        ( Story(..)
+        , StoryTemplate
+        , StoryPage
+        , Character(..)
+        , Object(..)
+        , defaultStory
+        , getFirstPage
+        , getNextPage
+        )
 import StoryTime.TemplateSelection exposing (TemplateSelection(..))
 import StoryTime.NameSelection exposing (NameSelection(..))
 import StoryTime.ObjectSelection exposing (ObjectSelection(..))
@@ -67,3 +86,26 @@ selectObject objectSelection progress =
 
         _ ->
             progress
+
+
+turnPage : StoryBuildProgress -> StoryBuildProgress
+turnPage build =
+    case build of
+        Complete story progress ->
+            Complete story <| incrementPage progress story
+
+        _ ->
+            build
+
+
+incrementPage : ReadingProgress -> Story -> ReadingProgress
+incrementPage progress story =
+    case progress of
+        NotStarted ->
+            getFirstPage story |> Maybe.map InProgress |> Maybe.withDefault Finished
+
+        InProgress currentPage ->
+            getNextPage story currentPage |> Maybe.map InProgress |> Maybe.withDefault Finished
+
+        Finished ->
+            Finished

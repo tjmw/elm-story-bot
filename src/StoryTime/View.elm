@@ -126,7 +126,7 @@ renderStoryNotStarted : Story -> Html Msg
 renderStoryNotStarted story =
     section [ class "container" ]
         [ renderStorySummary story
-        , button [] [ text "Start reading" ]
+        , button [ onClick TurnPage ] [ text "Start reading" ]
         ]
 
 
@@ -153,6 +153,7 @@ renderPage story page =
         [ div [ class "line center", onClick <| PageReadRequested page ]
             [ text <| pageToString story page
             ]
+        , button [ onClick TurnPage ] [ text "Turn the page" ]
         ]
 
 

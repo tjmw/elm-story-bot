@@ -15,6 +15,7 @@ type Msg
     | SelectTemplate
     | SetObject String
     | SelectObject
+    | TurnPage
     | NoOp
 
 

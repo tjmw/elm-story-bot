@@ -9,6 +9,8 @@ module StoryTime.Story
         , characterStringFromStory
         , defaultStory
         , findTemplateByNameString
+        , getFirstPage
+        , getNextPage
         , objectFromStory
         , objectStringFromStory
         , pageToString
@@ -53,6 +55,18 @@ type Story
 storyToPages : Story -> List StoryPage
 storyToPages (Story (StoryTemplate _ pages) _ _) =
     pages
+
+
+getFirstPage : Story -> Maybe StoryPage
+getFirstPage (Story (StoryTemplate _ pages) _ _) =
+    List.head pages
+
+
+getNextPage : Story -> StoryPage -> Maybe StoryPage
+getNextPage (Story (StoryTemplate _ pages) _ _) page =
+    List.Extra.elemIndex page pages
+        |> Maybe.map ((+) 1)
+        |> Maybe.andThen (flip List.Extra.getAt pages)
 
 
 characterFromStory : Story -> Character

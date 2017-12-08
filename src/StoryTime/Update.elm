@@ -13,10 +13,11 @@ import StoryTime.Story
 import StoryTime.StoryBuildProgress
     exposing
         ( StoryBuildProgress(..)
-        , selectName
-        , selectTemplate
-        , selectObject
         , defaultStoryBuildProgress
+        , selectName
+        , selectObject
+        , selectTemplate
+        , turnPage
         )
 import StoryTime.Types exposing (Model, Msg(..), setName, setObject)
 import StoryTime.NameSelection exposing (NameSelection(..))
@@ -61,6 +62,9 @@ update msg ({ storyBuildProgress, template, name, object } as model) =
 
             SelectObject ->
                 ( { model | storyBuildProgress = selectObject object storyBuildProgress }, Cmd.none )
+
+            TurnPage ->
+                ( { model | storyBuildProgress = turnPage storyBuildProgress }, Cmd.none )
 
             _ ->
                 noop
