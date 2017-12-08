@@ -16,6 +16,7 @@ type Msg
     | SetObject String
     | SelectObject
     | TurnPage
+    | ReadAgain
     | NoOp
 
 

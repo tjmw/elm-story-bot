@@ -15,6 +15,7 @@ import StoryTime.StoryBuildProgress
         ( StoryBuildProgress(..)
         , defaultStoryBuildProgress
         , getCurrentPage
+        , resetReadingProgress
         , selectName
         , selectObject
         , selectTemplate
@@ -66,6 +67,9 @@ update msg ({ storyBuildProgress, template, name, object } as model) =
 
             TurnPage ->
                 handlePageTurn model
+
+            ReadAgain ->
+                ( { model | storyBuildProgress = resetReadingProgress storyBuildProgress }, Cmd.none )
 
             _ ->
                 noop

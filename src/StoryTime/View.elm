@@ -162,7 +162,7 @@ renderStoryFinished : Story -> Html Msg
 renderStoryFinished story =
     section [ class "container" ]
         [ h1 [ class "headline center" ] [ text "The End" ]
-        , button [ class "button button-secondary" ] [ text "Read Again" ]
+        , button [ onClick ReadAgain, class "button button-secondary" ] [ text "Read Again" ]
         ]
 
 

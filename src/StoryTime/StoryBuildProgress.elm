@@ -7,6 +7,7 @@ module StoryTime.StoryBuildProgress
         , selectTemplate
         , selectObject
         , defaultStoryBuildProgress
+        , resetReadingProgress
         , turnPage
         )
 
@@ -125,3 +126,13 @@ getCurrentPage build =
 
         _ ->
             Nothing
+
+
+resetReadingProgress : StoryBuildProgress -> StoryBuildProgress
+resetReadingProgress build =
+    case build of
+        Complete story _ ->
+            Complete story NotStarted
+
+        _ ->
+            build
