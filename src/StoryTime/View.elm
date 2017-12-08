@@ -1,7 +1,7 @@
 module StoryTime.View exposing (view)
 
-import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option, span)
-import Html.Attributes exposing (class, id, for, placeholder)
+import Html exposing (Html, text, div, section, h1, img, button, input, label, select, option, span, i)
+import Html.Attributes exposing (class, id, for, placeholder, name, disabled, selected, value)
 import Html.Events exposing (onClick, onInput, on)
 import Html.Attributes.Aria exposing (ariaLabel)
 import Json.Decode
@@ -45,7 +45,7 @@ renderNameSelection name =
         , label [ class "center line", for "label-field" ]
             [ text "Write the name of the "
             , span [ class "highlight" ] [ text "person " ]
-            , text "in the story."
+            , text "in the story..."
             ]
         , input
             [ class "textInput f-secondary f-700 mb-primary"
@@ -61,23 +61,46 @@ renderNameSelection name =
 renderTemplateSelection : Html Msg
 renderTemplateSelection =
     section [ class "container" ]
-        [ select [ onChange SetTemplate ] <| emptyOption :: templateOptions
-        , button [ onClick SelectTemplate ] [ text "Select story template" ]
+        [ h1 [ class "headline", ariaLabel "Step 2" ] [ text "2" ]
+        , label [ class "center line", for "label-field" ] [ text "The story I want to add them to is..." ]
+        , div [ class "select-wrapper" ]
+            [ select
+                [ class "select f-secondary f-700 mb-primary"
+                , onChange SetTemplate
+                , name "Pick a Story"
+                ]
+              <|
+                placeholderOption
+                    :: templateOptions
+            , i [ class "caret" ] []
+            ]
+        , button [ class "f-secondary f-500 button button-primary", onClick SelectTemplate ] [ text "Next" ]
         ]
 
 
 renderObjectSelection : ObjectSelection -> Html Msg
 renderObjectSelection object =
     section [ class "container" ]
-        [ label [ for "label-field" ] [ text "Enter an object name" ]
-        , input [ id "label-field", onInput SetObject ] [ text <| objectSelectionToString object ]
-        , button [ onClick SelectObject ] [ text "Select Object" ]
+        [ h1 [ class "headline", ariaLabel "Step 3" ] [ text "3" ]
+        , label [ class "center line", for "label-field" ]
+            [ text "Write the name of the "
+            , span [ class "highlight" ] [ text "object " ]
+            , text "to put in the story..."
+            ]
+        , input
+            [ class "textInput f-secondary f-700 mb-primary"
+            , id "label-field"
+            , placeholder "Teddy Bear"
+            , onInput SetObject
+            ]
+            [ text <| objectSelectionToString object ]
+        , button [ class "f-secondary f-500 button button-primary", onClick SelectObject ] [ text "Next" ]
         ]
 
 
-emptyOption : Html Msg
-emptyOption =
-    option [] []
+placeholderOption : Html Msg
+placeholderOption =
+    option [ value "", disabled True, selected True ] [ text "Select your option" ]
 
 
 templateOptions : List (Html Msg)
