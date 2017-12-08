@@ -13,3 +13,7 @@ This project was bootstrapped with [Create Elm App](https://github.com/halfzebra
 ## Run the app in development
 
 `$ npm run dev`
+
+## Build for production
+
+`$ npm run build`
