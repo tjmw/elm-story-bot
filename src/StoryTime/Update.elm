@@ -16,6 +16,7 @@ import StoryTime.StoryBuildProgress
         , selectName
         , selectTemplate
         , selectObject
+        , defaultStoryBuildProgress
         )
 import StoryTime.Types exposing (Model, Msg(..), setName, setObject)
 import StoryTime.NameSelection exposing (NameSelection(..))
@@ -24,7 +25,7 @@ import StoryTime.ObjectSelection exposing (ObjectSelection(..))
 
 init : ( Model, Cmd Msg )
 init =
-    ( { storyBuildProgress = Incomplete
+    ( { storyBuildProgress = defaultStoryBuildProgress
       , name = NoNameSelected
       , template = NoTemplateSelected
       , object = NoObjectSelected

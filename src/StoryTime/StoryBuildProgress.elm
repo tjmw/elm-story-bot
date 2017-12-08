@@ -1,6 +1,6 @@
-module StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), ReadingProgress(..), selectName, selectTemplate, selectObject)
+module StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), ReadingProgress(..), selectName, selectTemplate, selectObject, defaultStoryBuildProgress)
 
-import StoryTime.Story exposing (Story(..), StoryTemplate, StoryPage, Character(..), Object(..))
+import StoryTime.Story exposing (Story(..), StoryTemplate, StoryPage, Character(..), Object(..), defaultStory)
 import StoryTime.TemplateSelection exposing (TemplateSelection(..))
 import StoryTime.NameSelection exposing (NameSelection(..))
 import StoryTime.ObjectSelection exposing (ObjectSelection(..))
@@ -17,6 +17,11 @@ type StoryBuildProgress
     | CharacterSelected Character
     | TemplateSelected Character StoryTemplate
     | Complete Story ReadingProgress
+
+
+defaultStoryBuildProgress : StoryBuildProgress
+defaultStoryBuildProgress =
+    Complete defaultStory NotStarted
 
 
 selectName : NameSelection -> StoryBuildProgress -> StoryBuildProgress
