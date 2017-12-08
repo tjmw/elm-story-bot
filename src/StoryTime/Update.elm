@@ -23,7 +23,7 @@ import StoryTime.NameSelection exposing (NameSelection(..))
 init : ( Model, Cmd Msg )
 init =
     ( { storyBuildProgress = Incomplete
-      , name = NoName
+      , name = NoNameSelected
       , template = NoTemplateSelected
       }
     , Cmd.none

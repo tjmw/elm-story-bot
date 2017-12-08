@@ -3,7 +3,7 @@ module StoryTime.NameSelection exposing (NameSelection(..), nameSelectionToStrin
 
 type NameSelection
     = NameSelection String
-    | NoName
+    | NoNameSelected
 
 
 nameSelectionToString : NameSelection -> String
@@ -20,7 +20,7 @@ stringToNameSelection : String -> NameSelection
 stringToNameSelection string =
     case string of
         "" ->
-            NoName
+            NoNameSelected
 
         _ ->
             NameSelection string
