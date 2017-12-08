@@ -167,7 +167,7 @@ quoted string =
 renderPage : Story -> StoryPage -> Html Msg
 renderPage story page =
     section [ class "container" ]
-        [ div [ class "line center", onClick <| PageReadRequested page ]
+        [ p [ class "line center", onClick <| PageReadRequested page ]
             [ text <| pageToString story page
             ]
         , button [ class "button button-secondary f-alternative, f-500", onClick TurnPage ] [ text "Turn the page" ]
@@ -177,7 +177,7 @@ renderPage story page =
 renderStoryFinished : Story -> Html Msg
 renderStoryFinished story =
     section [ class "container" ]
-        [ h1 [ class "headline center" ] [ text "The End" ]
+        [ h1 [ class "headline center" ] [ text "The End." ]
         , button [ onClick ReadAgain, class "button button-secondary f-secondary f-500" ] [ text "Read Again" ]
         ]
 

@@ -160,12 +160,13 @@ templateNames =
 someoneLosesSomething : StoryTemplate
 someoneLosesSomething =
     StoryTemplate
-        (StoryName "Someone losing something")
+        (StoryName "Someone Losing Something")
         [ StoryPage
             [ Line "Once upon a time, "
             , CharacterPlaceholder
             , Line "was on the way to the library, when they noticed they'd lost their"
             , ObjectPlaceholder
+            , Line "..."
             ]
         , StoryPage
             [ Line "This made"
@@ -180,16 +181,17 @@ someoneLosesSomething =
 birthdayParty : StoryTemplate
 birthdayParty =
     StoryTemplate
-        (StoryName "A birthday Party")
+        (StoryName "A Birthday Party")
         [ StoryPage
             [ Line "Once upon a time, "
             , CharacterPlaceholder
-            , Line "had a birthday party."
+            , Line "had a birthday party..."
             ]
         , StoryPage
             [ Line "There was a big cake, and lots of presents for "
             , CharacterPlaceholder
             , Line "including a"
             , ObjectPlaceholder
+            , Line "."
             ]
         ]
