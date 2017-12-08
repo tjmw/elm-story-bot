@@ -6,10 +6,13 @@ module StoryTime.Story
         , StoryPage
         , StoryTemplate
         , characterFromStory
+        , characterStringFromStory
         , defaultStory
         , findTemplateByNameString
         , objectFromStory
+        , objectStringFromStory
         , pageToString
+        , storyNameStringFromStory
         , storyToPages
         , templateNames
         )
@@ -80,14 +83,29 @@ componentToString character object storyComponent =
             objectToString object
 
 
+characterStringFromStory : Story -> String
+characterStringFromStory =
+    characterFromStory >> characterToString
+
+
 characterToString : Character -> String
 characterToString (Character name) =
     name
 
 
+objectStringFromStory : Story -> String
+objectStringFromStory =
+    objectFromStory >> objectToString
+
+
 objectToString : Object -> String
 objectToString (Object objectName) =
     objectName
+
+
+storyNameStringFromStory : Story -> String
+storyNameStringFromStory (Story (StoryTemplate (StoryName name) _) _ _) =
+    name
 
 
 defaultStory : Story
@@ -128,7 +146,7 @@ templateNames =
 someoneLosesSomething : StoryTemplate
 someoneLosesSomething =
     StoryTemplate
-        (StoryName "Someone loses something")
+        (StoryName "Someone losing something")
         [ StoryPage
             [ Line "Once upon a time, "
             , CharacterPlaceholder
@@ -148,7 +166,7 @@ someoneLosesSomething =
 birthdayParty : StoryTemplate
 birthdayParty =
     StoryTemplate
-        (StoryName "Birthday Party")
+        (StoryName "A birthday Party")
         [ StoryPage
             [ Line "Once upon a time, "
             , CharacterPlaceholder

@@ -12,10 +12,11 @@ import StoryTime.Story
     exposing
         ( Story
         , StoryPage
-        , characterFromStory
-        , objectFromStory
+        , characterStringFromStory
+        , objectStringFromStory
         , pageToString
         , storyToPages
+        , storyNameStringFromStory
         , templateNames
         )
 import StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), ReadingProgress(..))
@@ -124,9 +125,26 @@ templateOption name =
 renderStoryNotStarted : Story -> Html Msg
 renderStoryNotStarted story =
     section [ class "container" ]
-        [ text "Story summary"
+        [ renderStorySummary story
         , button [] [ text "Start reading" ]
         ]
+
+
+renderStorySummary : Story -> Html Msg
+renderStorySummary story =
+    span []
+        [ text "You've chosen a story about "
+        , text <| (quoted <| storyNameStringFromStory story) ++ " "
+        , text "featuring "
+        , text <| (quoted <| characterStringFromStory story) ++ " "
+        , text "and "
+        , text <| quoted <| objectStringFromStory story
+        ]
+
+
+quoted : String -> String
+quoted string =
+    "'" ++ string ++ "'"
 
 
 renderPage : Story -> StoryPage -> Html Msg
