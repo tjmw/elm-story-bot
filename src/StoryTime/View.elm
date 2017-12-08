@@ -161,8 +161,8 @@ renderPage story page =
 renderStoryFinished : Story -> Html Msg
 renderStoryFinished story =
     section [ class "container" ]
-        [ text "The End"
-        , button [ class "button button-secondary" ] [ text "Read again" ]
+        [ h1 [ class "headline center" ] [ text "The End" ]
+        , button [ class "button button-secondary" ] [ text "Read Again" ]
         ]
 
 
