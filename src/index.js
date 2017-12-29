@@ -1,6 +1,5 @@
 import './main.css';
 import { StoryTime } from './StoryTime.elm';
-import registerServiceWorker from './registerServiceWorker';
 
 const target = document.getElementById('root');
 
@@ -13,5 +12,3 @@ component.ports.sendStoryToRead.subscribe((text) => {
   speechSynthesis.speak(u);
   console.log(text);
 });
-
-registerServiceWorker();
