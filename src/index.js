@@ -1,10 +1,10 @@
 import './main.css';
-import { Main } from './Main.elm';
+import { StoryTime } from './StoryTime.elm';
 import registerServiceWorker from './registerServiceWorker';
 
 const target = document.getElementById('root');
 
-const component = Main.embed(target);
+const component = StoryTime.embed(target);
 
 component.ports.sendStoryToRead.subscribe((text) => {
   var u = new SpeechSynthesisUtterance();

@@ -1,4 +1,4 @@
-module Main exposing (..)
+module StoryTime exposing (..)
 
 import Html
 import StoryTime.View as View
