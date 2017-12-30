@@ -8,7 +8,7 @@ import StoryTime.StoryBuildProgress exposing (StoryBuildProgress)
 
 
 type Msg
-    = PageReadRequested StoryPage
+    = PageReadRequested
     | SetName String
     | SelectName
     | SetTemplate String

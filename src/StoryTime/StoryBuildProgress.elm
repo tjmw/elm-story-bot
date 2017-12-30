@@ -1,7 +1,6 @@
 module StoryTime.StoryBuildProgress
     exposing
         ( StoryBuildProgress(..)
-        , ReadingProgress(..)
         , getCurrentPage
         , selectName
         , selectTemplate
@@ -25,19 +24,14 @@ import StoryTime.Story
 import StoryTime.TemplateSelection exposing (TemplateSelection(..))
 import StoryTime.NameSelection exposing (NameSelection(..))
 import StoryTime.ObjectSelection exposing (ObjectSelection(..))
-
-
-type ReadingProgress
-    = NotStarted
-    | InProgress StoryPage
-    | Finished
+import StoryTime.StoryProgress as StoryProgress exposing (StoryProgress(..), startStory)
 
 
 type StoryBuildProgress
     = Incomplete
     | CharacterSelected Character
     | TemplateSelected Character StoryTemplate
-    | Complete Story ReadingProgress
+    | Complete StoryProgress
 
 
 defaultStoryBuildProgress : StoryBuildProgress
@@ -81,7 +75,9 @@ selectObject objectSelection progress =
         ObjectSelection name ->
             case progress of
                 TemplateSelected character template ->
-                    Complete (Story template character (Object name)) NotStarted
+                    Story template character (Object name)
+                        |> startStory
+                        |> Complete
 
                 _ ->
                     progress
@@ -93,36 +89,18 @@ selectObject objectSelection progress =
 turnPage : StoryBuildProgress -> StoryBuildProgress
 turnPage build =
     case build of
-        Complete story progress ->
-            Complete story <| incrementPage progress story
+        Complete storyProgress ->
+            Complete <| StoryProgress.turnPage storyProgress
 
         _ ->
             build
 
 
-incrementPage : ReadingProgress -> Story -> ReadingProgress
-incrementPage progress story =
-    case progress of
-        NotStarted ->
-            getFirstPage story |> Maybe.map InProgress |> Maybe.withDefault Finished
-
-        InProgress currentPage ->
-            getNextPage story currentPage |> Maybe.map InProgress |> Maybe.withDefault Finished
-
-        Finished ->
-            Finished
-
-
 getCurrentPage : StoryBuildProgress -> Maybe StoryPage
 getCurrentPage build =
     case build of
-        Complete _ readingProgress ->
-            case readingProgress of
-                InProgress page ->
-                    Just page
-
-                _ ->
-                    Nothing
+        Complete storyProgress ->
+            StoryProgress.getCurrentPage storyProgress
 
         _ ->
             Nothing
@@ -131,8 +109,8 @@ getCurrentPage build =
 resetReadingProgress : StoryBuildProgress -> StoryBuildProgress
 resetReadingProgress build =
     case build of
-        Complete story _ ->
-            Complete story NotStarted
+        Complete storyProgress ->
+            Complete <| StoryProgress.resetReadingProgress storyProgress
 
         _ ->
             build

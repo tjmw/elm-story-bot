@@ -20,8 +20,9 @@ import StoryTime.Story
         , storyNameStringFromStory
         , templateNames
         )
-import StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..), ReadingProgress(..))
+import StoryTime.StoryBuildProgress exposing (StoryBuildProgress(..))
 import StoryTime.Types exposing (Model, Msg(..))
+import StoryTime.StoryProgress as StoryProgress exposing (StoryProgress(..), ReadingProgress(..))
 
 
 view : Model -> Html Msg
@@ -36,16 +37,21 @@ view { storyBuildProgress, name, object, template } =
         TemplateSelected character template ->
             renderObjectSelection object
 
-        Complete story readingProgress ->
-            case readingProgress of
-                NotStarted ->
-                    renderStoryNotStarted story
+        Complete storyProgress ->
+            renderStoryProgress storyProgress
 
-                InProgress storyPage ->
-                    renderPage story storyPage
 
-                Finished ->
-                    renderStoryFinished story
+renderStoryProgress : StoryProgress -> Html Msg
+renderStoryProgress (StoryProgress story readingProgress) =
+    case readingProgress of
+        StoryProgress.NotStarted ->
+            renderStoryNotStarted story
+
+        StoryProgress.InProgress storyPage ->
+            renderPage story storyPage
+
+        StoryProgress.Finished ->
+            renderStoryFinished story
 
 
 renderNameSelection : NameSelection -> Html Msg
@@ -167,7 +173,7 @@ quoted string =
 renderPage : Story -> StoryPage -> Html Msg
 renderPage story page =
     section [ class "container" ]
-        [ p [ class "line center", onClick <| PageReadRequested page ]
+        [ p [ class "line center", onClick PageReadRequested ]
             [ text <| pageToString story page
             ]
         , button [ class "button button-secondary f-alternative, f-500", onClick TurnPage ] [ text "Turn the page" ]

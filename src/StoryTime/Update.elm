@@ -8,7 +8,6 @@ import StoryTime.Story
         , characterFromStory
         , defaultStory
         , objectFromStory
-        , pageToString
         )
 import StoryTime.StoryBuildProgress
     exposing
@@ -24,6 +23,7 @@ import StoryTime.StoryBuildProgress
 import StoryTime.Types exposing (Model, Msg(..), setName, setObject)
 import StoryTime.NameSelection exposing (NameSelection(..))
 import StoryTime.ObjectSelection exposing (ObjectSelection(..))
+import StoryTime.StoryProgress exposing (currentPageToString)
 
 
 init : ( Model, Cmd Msg )
@@ -44,8 +44,8 @@ update msg ({ storyBuildProgress, template, name, object } as model) =
             ( model, Cmd.none )
     in
         case msg of
-            PageReadRequested storyPage ->
-                ( model, readStoryPage storyBuildProgress storyPage )
+            PageReadRequested ->
+                ( model, readCurrentStoryPage storyBuildProgress )
 
             SetName nameString ->
                 ( setName nameString model, Cmd.none )
@@ -85,17 +85,18 @@ handlePageTurn ({ storyBuildProgress } as model) =
             getCurrentPage newBuildProgress
 
         cmd =
-            Maybe.map (readStoryPage newBuildProgress) page
-                |> Maybe.withDefault Cmd.none
+            readCurrentStoryPage newBuildProgress
     in
         ( { model | storyBuildProgress = newBuildProgress }, cmd )
 
 
-readStoryPage : StoryBuildProgress -> StoryPage -> Cmd Msg
-readStoryPage storyBuildProgress storyPage =
+readCurrentStoryPage : StoryBuildProgress -> Cmd Msg
+readCurrentStoryPage storyBuildProgress =
     case storyBuildProgress of
-        Complete story _ ->
-            sendStoryToRead <| pageToString story storyPage
+        Complete storyProgress ->
+            currentPageToString storyProgress
+                |> Maybe.map sendStoryToRead
+                |> Maybe.withDefault Cmd.none
 
         _ ->
             Cmd.none
